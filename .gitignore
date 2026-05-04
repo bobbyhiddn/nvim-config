@@ -1,0 +1,16 @@
+# Plugin manager cache
+lazy-lock.json
+
+# Neovim cache and state
+*.log
+.luarc.json
+.DS_Store
+
+# Backup files
+*~
+*.swp
+*.swo
+*.tmp
+
+# LSP and Tree-sitter cache (these auto-install)
+# Note: Users should let these install automatically
