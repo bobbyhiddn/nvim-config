@@ -34,15 +34,19 @@ require("lazy").setup({
       require("nvim-tree").setup({
         view = {
           width = 35,
-          mappings = {
-            list = {
-              { key = "C", action = "open_claude", action_cb = open_claude_in_folder },
-            },
-          },
         },
         filters = {
           dotfiles = false,
         },
+        on_attach = function(bufnr)
+          local api = require("nvim-tree.api")
+
+          -- Default mappings
+          api.config.mappings.default_on_attach(bufnr)
+
+          -- Custom mapping for Claude Code
+          vim.keymap.set('n', 'C', open_claude_in_folder, { buffer = bufnr, desc = "Open Claude Code in folder" })
+        end,
       })
     end,
   },
