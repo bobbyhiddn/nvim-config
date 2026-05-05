@@ -36,7 +36,7 @@ require("lazy").setup({
           width = 35,
           mappings = {
             list = {
-              { key = "c", action = "open_claude", action_cb = open_claude_in_folder },
+              { key = "C", action = "open_claude", action_cb = open_claude_in_folder },
             },
           },
         },
