@@ -2,11 +2,16 @@
 require("lazy").setup({
   -- Color scheme
   {
-    "folke/tokyonight.nvim",
+    "tanvirtin/monokai.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme tokyonight-night]])
+      require("monokai").setup({
+        palette = require("monokai").pro,
+      })
+      -- Enable transparency
+      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     end,
   },
 
@@ -193,7 +198,7 @@ require("lazy").setup({
     config = function()
       require("lualine").setup({
         options = {
-          theme = "tokyonight",
+          theme = "monokai-nvim",
         },
       })
     end,

@@ -45,6 +45,39 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
   command = "checktime",
 })
 
+-- Auto-launch toipe when opening nvim with no arguments
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- Only run if no files were opened and buffer is empty
+    if vim.fn.argc() == 0 and vim.fn.line('$') == 1 and vim.fn.getline(1) == '' then
+      vim.cmd("terminal toipe")
+      vim.cmd("startinsert")
+      -- Mark this buffer as the ephemeral toipe buffer
+      vim.b.is_ephemeral_toipe = true
+    end
+  end,
+})
+
+-- Auto-close ephemeral toipe when opening other windows
+vim.api.nvim_create_autocmd({ "WinNew", "BufWinEnter" }, {
+  callback = function()
+    -- Find and close any ephemeral toipe buffers
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(bufnr) then
+        local ok, is_ephemeral = pcall(vim.api.nvim_buf_get_var, bufnr, "is_ephemeral_toipe")
+        if ok and is_ephemeral then
+          -- Find windows showing this buffer and close them
+          for _, winid in ipairs(vim.fn.win_findbuf(bufnr)) do
+            if vim.api.nvim_win_is_valid(winid) and vim.api.nvim_get_current_win() ~= winid then
+              vim.api.nvim_win_close(winid, true)
+            end
+          end
+        end
+      end
+    end
+  end,
+})
+
 -- Load plugins
 require("config.plugins")
 require("config.keymaps")

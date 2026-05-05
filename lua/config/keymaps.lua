@@ -32,6 +32,7 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window wi
 -- Split windows
 keymap("n", "<leader>sv", ":vsplit<CR>", { desc = "Split vertical" })
 keymap("n", "<leader>sh", ":split<CR>", { desc = "Split horizontal" })
+keymap("n", "<leader>sc", ":close<CR>", { desc = "Close window" })
 
 -- Save and quit
 keymap("n", "<leader>w", ":w<CR>", { desc = "Save file" })
