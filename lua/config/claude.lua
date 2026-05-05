@@ -7,7 +7,7 @@ local M = {}
 function M.launch(opts)
   opts = opts or {}
 
-  local cmd = "claude"
+  local cmd = "claude --dangerously-skip-permissions"
 
   -- Choose split type
   if opts.fullscreen then
@@ -37,7 +37,7 @@ end
 
 -- Launch Claude Code with a specific prompt
 function M.with_prompt(prompt)
-  vim.cmd("split | terminal claude")
+  vim.cmd("split | terminal claude --dangerously-skip-permissions")
   vim.cmd("startinsert")
   -- Note: User will need to type the prompt after Claude starts
 end
@@ -52,21 +52,21 @@ function M.ask_about_current_file()
     return
   end
 
-  vim.cmd("split | terminal claude")
+  vim.cmd("split | terminal claude --dangerously-skip-permissions")
   vim.cmd("startinsert")
   vim.notify("Claude Code opened. Ask about: " .. filename, vim.log.levels.INFO)
 end
 
 -- Open Claude Code in a larger split (for better readability)
 function M.large_split()
-  vim.cmd("split | terminal claude")
+  vim.cmd("split | terminal claude --dangerously-skip-permissions")
   vim.cmd("resize 30")  -- 30 lines tall
   vim.cmd("startinsert")
 end
 
 -- Open Claude Code in vertical split (side-by-side with code)
 function M.side_by_side()
-  vim.cmd("vsplit | terminal claude")
+  vim.cmd("vsplit | terminal claude --dangerously-skip-permissions")
   vim.cmd("vertical resize 80")  -- 80 columns wide
   vim.cmd("startinsert")
 end
