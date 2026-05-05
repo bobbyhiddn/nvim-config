@@ -20,9 +20,25 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+      local function open_claude_in_folder()
+        local api = require("nvim-tree.api")
+        local node = api.tree.get_node_under_cursor()
+
+        if node then
+          local path = node.type == "directory" and node.absolute_path or vim.fn.fnamemodify(node.absolute_path, ":h")
+          vim.cmd("split | terminal cd " .. vim.fn.shellescape(path) .. " && claude --dangerously-skip-permissions")
+          vim.cmd("startinsert")
+        end
+      end
+
       require("nvim-tree").setup({
         view = {
           width = 35,
+          mappings = {
+            list = {
+              { key = "c", action = "open_claude", action_cb = open_claude_in_folder },
+            },
+          },
         },
         filters = {
           dotfiles = false,
