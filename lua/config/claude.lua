@@ -3,9 +3,23 @@
 
 local M = {}
 
+-- Check if Claude Code CLI is installed
+function M.is_installed()
+  return vim.fn.executable("claude") == 1
+end
+
 -- Launch Claude Code in a split
 function M.launch(opts)
   opts = opts or {}
+
+  -- Check if Claude Code is installed
+  if not M.is_installed() then
+    vim.notify(
+      "Claude Code CLI is not installed or not in PATH. Check: which claude",
+      vim.log.levels.WARN
+    )
+    return
+  end
 
   local cmd = "claude --dangerously-skip-permissions"
 
