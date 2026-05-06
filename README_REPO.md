@@ -18,21 +18,37 @@ A modern Neovim setup with LSP, fuzzy finding, Git integration, typing practice 
 
 ## 📦 Installation
 
-### Prerequisites
+### Required Prerequisites
+
+**Only Neovim is required!** Everything else is optional.
 
 ```bash
 # macOS
-brew install neovim toipe
+brew install neovim
 
 # Ubuntu/Debian
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update && sudo apt install neovim
-cargo install toipe  # or download from releases
 
 # Arch Linux
 sudo pacman -S neovim
-cargo install toipe
 ```
+
+### Optional Features
+
+**Typing Practice (Toipe):**
+```bash
+# macOS
+brew install toipe
+
+# Linux (requires Rust)
+cargo install toipe
+
+# Or download binary from: https://github.com/Samyak2/toipe/releases
+```
+
+**Claude Code AI Assistant:**
+- Requires Claude Code CLI (if you're using this config, you probably have it!)
 
 ### Install Config
 
@@ -141,6 +157,16 @@ Edit `lua/config/keymaps.lua` to add or change keybindings.
 
 ## 🐛 Troubleshooting
 
+### "Toipe not installed" message?
+
+**Toipe is optional!** Install it with:
+```bash
+brew install toipe  # macOS
+cargo install toipe # Linux
+```
+
+Or just skip the typing practice features - everything else works!
+
 ### Plugins not loading?
 
 ```vim
@@ -159,6 +185,8 @@ Install required language servers.
 ```vim
 :checkhealth
 ```
+
+**See `TROUBLESHOOTING.md` for complete guide!**
 
 ## 📝 Commands Reference
 

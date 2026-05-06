@@ -3,9 +3,23 @@
 
 local M = {}
 
+-- Check if toipe is installed
+function M.is_installed()
+  return vim.fn.executable("toipe") == 1
+end
+
 -- Launch toipe with custom options
 function M.launch(opts)
   opts = opts or {}
+
+  -- Check if toipe is installed
+  if not M.is_installed() then
+    vim.notify(
+      "Toipe is not installed. Install with: brew install toipe (macOS) or cargo install toipe",
+      vim.log.levels.WARN
+    )
+    return
+  end
 
   local cmd = "toipe"
 
